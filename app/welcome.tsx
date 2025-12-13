@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors } from '@/styles/commonStyles';
+import { colors, typography, textStyles } from '@/styles/commonStyles';
 import { IconSymbol } from '@/components/IconSymbol';
 
 export default function WelcomeScreen() {
@@ -24,9 +24,9 @@ export default function WelcomeScreen() {
         {/* Gold accent line */}
         <View style={styles.accentLine} />
 
-        {/* App Title */}
+        {/* App Title - Using new typography system */}
         <View style={styles.brandSection}>
-          <Text style={styles.brandTitle}>Jambalaya x Jerk x Jollof</Text>
+          <Text style={styles.brandTitle}>JAMBALAYA × JERK × JOLLOF</Text>
           <View style={styles.goldUnderline} />
           <Text style={styles.brandTagline}>
             Discover the flavors of the Black diaspora
@@ -67,7 +67,7 @@ export default function WelcomeScreen() {
                 size={28}
                 color="#0D0D0D"
               />
-              <Text style={styles.roleButtonText}>I&apos;m Here to Eat</Text>
+              <Text style={styles.roleButtonText}>I&apos;M HERE TO EAT</Text>
               <IconSymbol
                 ios_icon_name="arrow.right"
                 android_material_icon_name="arrow_forward"
@@ -89,7 +89,7 @@ export default function WelcomeScreen() {
                 size={28}
                 color={colors.gold}
               />
-              <Text style={styles.roleButtonTextSecondary}>I&apos;m a Vendor</Text>
+              <Text style={styles.roleButtonTextSecondary}>I&apos;M A VENDOR</Text>
               <IconSymbol
                 ios_icon_name="arrow.right"
                 android_material_icon_name="arrow_forward"
@@ -139,12 +139,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   brandTitle: {
-    fontSize: 32,
-    fontWeight: '900',
+    // Using Montserrat ExtraBold for strong, geometric headline
+    ...typography.h1,
+    fontSize: 28,
     color: colors.gold,
     textAlign: 'center',
     marginBottom: 12,
-    letterSpacing: 0.5,
+    letterSpacing: 1,
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 8,
@@ -156,17 +157,18 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   brandTagline: {
-    fontSize: 16,
+    // Using Poppins Medium for smooth, readable UI text
+    ...typography.h6,
     color: colors.text,
     textAlign: 'center',
     marginBottom: 8,
-    fontWeight: '600',
   },
   brandSubtagline: {
+    // Using Poppins Light for subtle caption
+    ...typography.caption,
     fontSize: 13,
     color: colors.textSecondary,
     textAlign: 'center',
-    fontWeight: '500',
   },
   iconContainer: {
     alignItems: 'center',
@@ -200,12 +202,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   roleButtonText: {
+    // Using Poppins SemiBold for button text
+    ...typography.button,
     flex: 1,
-    fontSize: 18,
-    fontWeight: '800',
+    fontSize: 16,
     color: '#0D0D0D',
     marginLeft: 16,
-    letterSpacing: 0.3,
   },
   roleButtonSecondary: {
     borderRadius: 16,
@@ -223,12 +225,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   roleButtonTextSecondary: {
+    // Using Poppins SemiBold for button text
+    ...typography.button,
     flex: 1,
-    fontSize: 18,
-    fontWeight: '800',
+    fontSize: 16,
     color: colors.gold,
     marginLeft: 16,
-    letterSpacing: 0.3,
   },
   bottomAccent: {
     flexDirection: 'row',

@@ -5,11 +5,34 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { CartProvider } from '@/contexts/CartContext';
+import {
+  Montserrat_800ExtraBold,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from '@expo-google-fonts/montserrat';
+import {
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_300Light,
+} from '@expo-google-fonts/poppins';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
+    // Montserrat fonts for headlines
+    'Montserrat-ExtraBold': Montserrat_800ExtraBold,
+    'Montserrat-Bold': Montserrat_700Bold,
+    'Montserrat-SemiBold': Montserrat_600SemiBold,
+    
+    // Poppins fonts for body and UI
+    'Poppins-Regular': Poppins_400Regular,
+    'Poppins-Medium': Poppins_500Medium,
+    'Poppins-SemiBold': Poppins_600SemiBold,
+    'Poppins-Light': Poppins_300Light,
+    
+    // Keep SpaceMono for backwards compatibility
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 

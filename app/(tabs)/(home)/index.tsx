@@ -12,7 +12,7 @@ import {
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '@/contexts/AuthContext';
-import { colors } from '@/styles/commonStyles';
+import { colors, typography, textStyles } from '@/styles/commonStyles';
 import { IconSymbol } from '@/components/IconSymbol';
 import { DiasporaSegment } from '@/types/database.types';
 import { MOCK_VENDORS } from '@/constants/MockVendorData';
@@ -323,8 +323,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   heroCity: {
+    // Using Montserrat ExtraBold for strong, impactful headlines
+    ...typography.h1,
     fontSize: 32,
-    fontWeight: '900',
     color: colors.gold,
     marginBottom: 4,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
@@ -332,9 +333,10 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   heroSubtext: {
+    // Using Poppins Medium for smooth UI labels
+    ...typography.label,
     fontSize: 14,
     color: colors.text,
-    fontWeight: '600',
   },
   categorySection: {
     marginBottom: 24,
@@ -356,9 +358,9 @@ const styles = StyleSheet.create({
     borderColor: colors.gold,
   },
   categoryText: {
-    fontSize: 15,
+    // Using Poppins SemiBold for category labels
+    ...typography.labelLarge,
     fontWeight: '700',
-    color: colors.text,
   },
   categoryTextActive: {
     color: '#0D0D0D',
@@ -374,14 +376,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
+    // Using Poppins SemiBold for section titles
+    ...typography.h3,
     fontSize: 22,
-    fontWeight: '800',
-    color: colors.text,
   },
   seeAll: {
+    // Using Poppins Medium for action labels
+    ...typography.labelSmall,
     fontSize: 14,
-    fontWeight: '700',
     color: colors.gold,
+    textTransform: 'uppercase',
   },
   restaurantCard: {
     marginHorizontal: 20,
@@ -408,13 +412,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   restaurantName: {
+    // Using Poppins SemiBold for restaurant names
+    ...typography.h4,
     fontSize: 20,
-    fontWeight: '800',
-    color: colors.text,
     marginBottom: 4,
   },
   restaurantTagline: {
-    fontSize: 14,
+    // Using Poppins Regular for body text
+    ...typography.bodySmall,
     color: colors.textSecondary,
     marginBottom: 12,
   },
@@ -433,8 +438,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   ratingText: {
+    // Using Poppins SemiBold for ratings
+    ...typography.labelSmall,
     fontSize: 14,
-    fontWeight: '700',
     color: colors.gold,
   },
   cuisineBadges: {
@@ -450,6 +456,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   cuisineBadgeText: {
+    // Using Poppins Light for subtle captions
+    ...typography.caption,
     fontSize: 11,
     fontWeight: '700',
     color: colors.text,
@@ -474,14 +482,15 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   groceryName: {
+    // Using Poppins Medium for grocery names
+    ...typography.h6,
     fontSize: 15,
-    fontWeight: '700',
-    color: colors.text,
     marginBottom: 4,
   },
   groceryTagline: {
+    // Using Poppins Light for captions
+    ...typography.caption,
     fontSize: 12,
-    color: colors.textSecondary,
     marginBottom: 8,
   },
   groceryBadge: {
@@ -490,8 +499,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   groceryBadgeText: {
+    // Using Poppins Medium for badge text
+    ...typography.labelSmall,
     fontSize: 11,
-    fontWeight: '600',
     color: colors.gold,
   },
   eventCard: {
@@ -517,20 +527,23 @@ const styles = StyleSheet.create({
     boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)',
   },
   eventDate: {
+    // Using Poppins SemiBold for event dates
+    ...typography.labelSmall,
     fontSize: 13,
-    fontWeight: '800',
     color: '#FFFFFF',
   },
   eventInfo: {
     padding: 16,
   },
   eventTitle: {
+    // Using Poppins SemiBold for event titles
+    ...typography.h5,
     fontSize: 18,
-    fontWeight: '800',
-    color: colors.text,
     marginBottom: 4,
   },
   eventSubtitle: {
+    // Using Poppins Regular for event subtitles
+    ...typography.bodySmall,
     fontSize: 13,
     color: colors.textSecondary,
     marginBottom: 10,
@@ -541,8 +554,9 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   eventLocation: {
+    // Using Poppins Medium for location labels
+    ...typography.label,
     fontSize: 13,
-    fontWeight: '600',
     color: colors.gold,
   },
   bottomPadding: {
