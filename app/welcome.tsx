@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '@/styles/commonStyles';
@@ -10,158 +10,236 @@ export default function WelcomeScreen() {
   const router = useRouter();
 
   return (
-    <LinearGradient
-      colors={[colors.primary, colors.secondary, colors.accent]}
-      style={styles.container}
-    >
+    <View style={styles.container}>
+      {/* Background with subtle pattern overlay */}
+      <LinearGradient
+        colors={['#0D0D0D', '#1A1A1A', '#0D0D0D']}
+        style={StyleSheet.absoluteFill}
+      />
+      
+      {/* Afrocentric pattern overlay */}
+      <View style={styles.patternOverlay} />
+
       <View style={styles.content}>
-        {/* Logo/Brand Section */}
+        {/* Gold accent line */}
+        <View style={styles.accentLine} />
+
+        {/* App Title */}
         <View style={styles.brandSection}>
           <Text style={styles.brandTitle}>Jambalaya x Jerk x Jollof</Text>
+          <View style={styles.goldUnderline} />
           <Text style={styles.brandTagline}>
             Discover the flavors of the Black diaspora
           </Text>
+          <Text style={styles.brandSubtagline}>
+            African American • Caribbean • African
+          </Text>
         </View>
 
-        {/* Illustration or Icon */}
+        {/* Icon with gold glow */}
         <View style={styles.iconContainer}>
-          <IconSymbol
-            ios_icon_name="fork.knife"
-            android_material_icon_name="restaurant"
-            size={120}
-            color="#FFFFFF"
-          />
+          <View style={styles.iconGlow}>
+            <IconSymbol
+              ios_icon_name="fork.knife"
+              android_material_icon_name="restaurant"
+              size={80}
+              color={colors.gold}
+            />
+          </View>
         </View>
 
-        {/* Role Selection */}
+        {/* Role Selection Buttons */}
         <View style={styles.roleSection}>
-          <Text style={styles.roleTitle}>Welcome! How can we help you?</Text>
-
           <TouchableOpacity
             style={styles.roleButton}
             onPress={() => router.push('/auth/customer-auth')}
-            activeOpacity={0.8}
+            activeOpacity={0.9}
           >
-            <View style={styles.roleButtonContent}>
+            <LinearGradient
+              colors={[colors.gold, '#B8941F']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.buttonGradient}
+            >
               <IconSymbol
                 ios_icon_name="fork.knife.circle.fill"
                 android_material_icon_name="restaurant_menu"
-                size={32}
-                color={colors.primary}
+                size={28}
+                color="#0D0D0D"
               />
-              <View style={styles.roleButtonText}>
-                <Text style={styles.roleButtonTitle}>I'm here to EAT</Text>
-                <Text style={styles.roleButtonSubtitle}>
-                  Discover and order from Black-owned restaurants
-                </Text>
-              </View>
+              <Text style={styles.roleButtonText}>I&apos;m Here to Eat</Text>
               <IconSymbol
-                ios_icon_name="chevron.right"
-                android_material_icon_name="chevron_right"
+                ios_icon_name="arrow.right"
+                android_material_icon_name="arrow_forward"
                 size={24}
-                color={colors.textSecondary}
+                color="#0D0D0D"
               />
-            </View>
+            </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.roleButton}
+            style={styles.roleButtonSecondary}
             onPress={() => router.push('/auth/vendor-auth')}
-            activeOpacity={0.8}
+            activeOpacity={0.9}
           >
-            <View style={styles.roleButtonContent}>
+            <View style={styles.buttonSecondaryContent}>
               <IconSymbol
                 ios_icon_name="storefront.fill"
                 android_material_icon_name="store"
-                size={32}
-                color={colors.primary}
+                size={28}
+                color={colors.gold}
               />
-              <View style={styles.roleButtonText}>
-                <Text style={styles.roleButtonTitle}>I own a restaurant/grocery</Text>
-                <Text style={styles.roleButtonSubtitle}>
-                  Join our platform and reach more customers
-                </Text>
-              </View>
+              <Text style={styles.roleButtonTextSecondary}>I&apos;m a Vendor</Text>
               <IconSymbol
-                ios_icon_name="chevron.right"
-                android_material_icon_name="chevron_right"
+                ios_icon_name="arrow.right"
+                android_material_icon_name="arrow_forward"
                 size={24}
-                color={colors.textSecondary}
+                color={colors.gold}
               />
             </View>
           </TouchableOpacity>
         </View>
+
+        {/* Bottom accent */}
+        <View style={styles.bottomAccent}>
+          <View style={styles.accentDot} />
+          <View style={[styles.accentDot, { backgroundColor: colors.red }]} />
+          <View style={[styles.accentDot, { backgroundColor: colors.green }]} />
+        </View>
       </View>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0D0D0D',
+  },
+  patternOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 0.05,
+    backgroundColor: 'transparent',
   },
   content: {
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 80,
-    paddingBottom: 40,
+    paddingBottom: 60,
+    justifyContent: 'space-between',
+  },
+  accentLine: {
+    width: 60,
+    height: 4,
+    backgroundColor: colors.gold,
+    alignSelf: 'center',
+    borderRadius: 2,
   },
   brandSection: {
     alignItems: 'center',
-    marginBottom: 40,
   },
   brandTitle: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#FFFFFF',
+    fontSize: 32,
+    fontWeight: '900',
+    color: colors.gold,
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 12,
+    letterSpacing: 0.5,
+    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
+  },
+  goldUnderline: {
+    width: 120,
+    height: 2,
+    backgroundColor: colors.gold,
+    marginBottom: 16,
   },
   brandTagline: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: colors.text,
     textAlign: 'center',
-    opacity: 0.9,
+    marginBottom: 8,
+    fontWeight: '600',
+  },
+  brandSubtagline: {
+    fontSize: 13,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    fontWeight: '500',
   },
   iconContainer: {
     alignItems: 'center',
-    marginBottom: 60,
+    justifyContent: 'center',
+  },
+  iconGlow: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'rgba(212, 175, 55, 0.3)',
+    boxShadow: '0px 0px 40px rgba(212, 175, 55, 0.2)',
   },
   roleSection: {
-    flex: 1,
-  },
-  roleTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 24,
+    gap: 16,
   },
   roleButton: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    marginBottom: 16,
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
-    elevation: 4,
+    overflow: 'hidden',
+    boxShadow: '0px 8px 24px rgba(212, 175, 55, 0.3)',
+    elevation: 8,
   },
-  roleButtonContent: {
+  buttonGradient: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
-    gap: 16,
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    paddingHorizontal: 24,
   },
   roleButtonText: {
     flex: 1,
-  },
-  roleButtonTitle: {
     fontSize: 18,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 4,
+    fontWeight: '800',
+    color: '#0D0D0D',
+    marginLeft: 16,
+    letterSpacing: 0.3,
   },
-  roleButtonSubtitle: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    lineHeight: 18,
+  roleButtonSecondary: {
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: colors.gold,
+    backgroundColor: 'rgba(212, 175, 55, 0.05)',
+    boxShadow: '0px 4px 16px rgba(212, 175, 55, 0.15)',
+    elevation: 4,
+  },
+  buttonSecondaryContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    paddingHorizontal: 24,
+  },
+  roleButtonTextSecondary: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.gold,
+    marginLeft: 16,
+    letterSpacing: 0.3,
+  },
+  bottomAccent: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
+    marginTop: 20,
+  },
+  accentDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: colors.gold,
   },
 });

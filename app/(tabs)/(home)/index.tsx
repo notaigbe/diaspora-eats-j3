@@ -7,9 +7,10 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useTheme } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '@/contexts/AuthContext';
 import { colors } from '@/styles/commonStyles';
 import { IconSymbol } from '@/components/IconSymbol';
@@ -17,333 +18,270 @@ import { DiasporaSegment } from '@/types/database.types';
 import { MOCK_VENDORS } from '@/constants/MockVendorData';
 import { MOCK_EVENTS } from '@/constants/MockEventData';
 
+const { width } = Dimensions.get('window');
+const CAROUSEL_WIDTH = width - 40;
+
 export default function HomeScreen() {
   const router = useRouter();
-  const theme = useTheme();
-  const isDark = theme.dark;
   const { user } = useAuth();
 
-  const [selectedSegment, setSelectedSegment] = useState<DiasporaSegment | 'All'>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const bgColor = isDark ? colors.backgroundDark : colors.background;
-  const textColor = isDark ? colors.textDark : colors.text;
-  const textSecondaryColor = isDark ? colors.textSecondaryDark : colors.textSecondary;
-  const cardColor = isDark ? colors.cardDark : colors.card;
-
-  const diasporaSegments: (DiasporaSegment | 'All')[] = [
-    'All',
-    'African American',
-    'Caribbean',
-    'African',
+  // Hero carousel images
+  const heroImages = [
+    {
+      id: '1',
+      city: 'NYC',
+      image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800',
+    },
+    {
+      id: '2',
+      city: 'LA',
+      image: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800',
+    },
+    {
+      id: '3',
+      city: 'Miami',
+      image: 'https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=800',
+    },
   ];
 
-  // Filter vendors based on selected segment
-  const filteredVendors = selectedSegment === 'All'
-    ? MOCK_VENDORS
-    : MOCK_VENDORS.filter((v) => v.diaspora_focus.includes(selectedSegment));
+  const categories = ['All', 'Jambalaya', 'Jerk', 'Jollof'];
 
-  // Featured vendors (highest rated)
+  // Featured vendors
   const featuredVendors = [...MOCK_VENDORS]
     .sort((a, b) => b.rating_average - a.rating_average)
-    .slice(0, 3);
+    .slice(0, 4);
 
-  // Vendors in user's city
-  const nearbyVendors = user?.default_location_city
-    ? MOCK_VENDORS.filter((v) => v.city === user.default_location_city)
-    : [];
+  // Nearby grocery
+  const groceryVendors = MOCK_VENDORS.filter((v) => v.vendor_type === 'grocery').slice(0, 3);
 
-  // Upcoming events in user's location
+  // Upcoming events
   const now = new Date();
   const upcomingEvents = MOCK_EVENTS.filter((event) => {
     const eventDate = new Date(event.start_datetime);
-    const isUpcoming = eventDate >= now;
-    const isPublished = event.is_published;
-    const matchesLocation = user?.default_location_state 
-      ? event.state === user.default_location_state
-      : true;
-    
-    return isUpcoming && isPublished && matchesLocation;
+    return eventDate >= now && event.is_published;
   })
-  .sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime())
-  .slice(0, 5);
+    .sort((a, b) => new Date(a.start_datetime).getTime() - new Date(b.start_datetime).getTime())
+    .slice(0, 3);
 
   const formatEventDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
       month: 'short',
       day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
     };
     return date.toLocaleDateString('en-US', options);
   };
 
-  const VendorCard = ({ vendor, horizontal = false }: any) => (
-    <TouchableOpacity
-      style={[
-        horizontal ? styles.vendorCardHorizontal : styles.vendorCard,
-        { backgroundColor: cardColor },
-      ]}
-      onPress={() => router.push(`/vendor/${vendor.id}`)}
-      activeOpacity={0.8}
-    >
-      <Image
-        source={{ uri: vendor.cover_image }}
-        style={horizontal ? styles.vendorImageHorizontal : styles.vendorImage}
-      />
-      <View style={styles.vendorInfo}>
-        <Text style={[styles.vendorName, { color: textColor }]} numberOfLines={1}>
-          {vendor.name}
-        </Text>
-        <Text style={[styles.vendorTagline, { color: textSecondaryColor }]} numberOfLines={1}>
-          {vendor.tagline}
-        </Text>
-        <View style={styles.vendorMeta}>
-          <View style={styles.ratingContainer}>
-            <IconSymbol
-              ios_icon_name="star.fill"
-              android_material_icon_name="star"
-              size={14}
-              color="#FFB800"
-            />
-            <Text style={[styles.ratingText, { color: textColor }]}>
-              {vendor.rating_average}
-            </Text>
-            <Text style={[styles.ratingCount, { color: textSecondaryColor }]}>
-              ({vendor.rating_count})
-            </Text>
-          </View>
-          <Text style={[styles.priceLevel, { color: textSecondaryColor }]}>
-            {vendor.avg_price_level}
-          </Text>
-        </View>
-        <View style={styles.badges}>
-          {vendor.diaspora_focus.slice(0, 2).map((focus, index) => (
-            <React.Fragment key={index}>
-              <View style={[styles.badge, { backgroundColor: colors.highlight }]}>
-                <Text style={[styles.badgeText, { color: colors.text }]}>
-                  {focus}
-                </Text>
-              </View>
-            </React.Fragment>
-          ))}
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-
-  const EventCard = ({ event }: any) => (
-    <TouchableOpacity
-      style={[styles.eventCardHorizontal, { backgroundColor: cardColor }]}
-      onPress={() => router.push(`/event-detail?id=${event.id}`)}
-      activeOpacity={0.8}
-    >
-      <Image
-        source={{ uri: event.hero_image }}
-        style={styles.eventImageHorizontal}
-      />
-      <View style={styles.eventInfo}>
-        <Text style={[styles.eventTitle, { color: textColor }]} numberOfLines={2}>
-          {event.title}
-        </Text>
-        <View style={styles.eventMeta}>
-          <View style={styles.metaRow}>
-            <IconSymbol
-              ios_icon_name="calendar"
-              android_material_icon_name="event"
-              size={12}
-              color={colors.primary}
-            />
-            <Text style={[styles.eventMetaText, { color: textSecondaryColor }]} numberOfLines={1}>
-              {formatEventDate(event.start_datetime)}
-            </Text>
-          </View>
-          <View style={styles.metaRow}>
-            <IconSymbol
-              ios_icon_name="location.fill"
-              android_material_icon_name="location_on"
-              size={12}
-              color={colors.primary}
-            />
-            <Text style={[styles.eventMetaText, { color: textSecondaryColor }]}>
-              {event.city}, {event.state}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.eventBadges}>
-          <View style={[styles.eventTypeBadge, { backgroundColor: colors.primary }]}>
-            <Text style={styles.eventTypeBadgeText}>{event.event_type}</Text>
-          </View>
-          {event.diaspora_focus.slice(0, 1).map((focus, index) => (
-            <React.Fragment key={index}>
-              <View style={[styles.badge, { backgroundColor: colors.highlight }]}>
-                <Text style={[styles.badgeText, { color: colors.text }]}>
-                  {focus}
-                </Text>
-              </View>
-            </React.Fragment>
-          ))}
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-
   return (
-    <View style={[styles.container, { backgroundColor: bgColor }]}>
+    <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={[styles.greeting, { color: textColor }]}>
-            Tap in to the diaspora flavors near you
-          </Text>
-          
-          {/* Location */}
-          <TouchableOpacity
-            style={[styles.locationButton, { backgroundColor: cardColor }]}
-            onPress={() => router.push('/auth/location-setup')}
-            activeOpacity={0.7}
-          >
-            <IconSymbol
-              ios_icon_name="location.fill"
-              android_material_icon_name="location_on"
-              size={20}
-              color={colors.primary}
-            />
-            <Text style={[styles.locationText, { color: textColor }]}>
-              {user?.default_location_city && user?.default_location_state
-                ? `${user.default_location_city}, ${user.default_location_state}`
-                : 'Set your location'}
-            </Text>
-            <IconSymbol
-              ios_icon_name="chevron.down"
-              android_material_icon_name="expand_more"
-              size={18}
-              color={textSecondaryColor}
-            />
-          </TouchableOpacity>
-        </View>
-
-        {/* Diaspora Segment Filters */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.filterScroll}
-          contentContainerStyle={styles.filterContent}
-        >
-          {diasporaSegments.map((segment, index) => (
-            <React.Fragment key={index}>
-              <TouchableOpacity
-                style={[
-                  styles.filterChip,
-                  selectedSegment === segment && styles.filterChipSelected,
-                ]}
-                onPress={() => setSelectedSegment(segment)}
-                activeOpacity={0.7}
-              >
-                <Text
-                  style={[
-                    styles.filterChipText,
-                    { color: selectedSegment === segment ? '#FFFFFF' : textColor },
-                  ]}
-                >
-                  {segment}
-                </Text>
-              </TouchableOpacity>
-            </React.Fragment>
-          ))}
-        </ScrollView>
-
-        {/* Upcoming Events Section */}
-        {upcomingEvents.length > 0 && (
-          <View style={styles.section}>
-            <View style={styles.sectionHeader}>
-              <Text style={[styles.sectionTitle, { color: textColor }]}>
-                Upcoming Events & Socials
-              </Text>
-              <TouchableOpacity onPress={() => router.push('/(tabs)/events')}>
-                <Text style={[styles.seeAll, { color: colors.primary }]}>View All</Text>
-              </TouchableOpacity>
-            </View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.horizontalList}
-            >
-              {upcomingEvents.map((event, index) => (
-                <React.Fragment key={index}>
-                  <EventCard event={event} />
-                </React.Fragment>
-              ))}
-            </ScrollView>
-          </View>
-        )}
-
-        {/* Featured This Week */}
-        <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Text style={[styles.sectionTitle, { color: textColor }]}>
-              Featured This Week
-            </Text>
-            <TouchableOpacity onPress={() => router.push('/(tabs)/explore')}>
-              <Text style={[styles.seeAll, { color: colors.primary }]}>See All</Text>
-            </TouchableOpacity>
-          </View>
+        {/* Hero Carousel */}
+        <View style={styles.heroSection}>
           <ScrollView
             horizontal
+            pagingEnabled
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.horizontalList}
+            contentContainerStyle={styles.carouselContent}
           >
-            {featuredVendors.map((vendor, index) => (
+            {heroImages.map((item, index) => (
               <React.Fragment key={index}>
-                <VendorCard vendor={vendor} horizontal />
+                <View style={styles.carouselItem}>
+                  <Image source={{ uri: item.image }} style={styles.heroImage} />
+                  <LinearGradient
+                    colors={['transparent', 'rgba(13, 13, 13, 0.9)']}
+                    style={styles.heroGradient}
+                  >
+                    <Text style={styles.heroCity}>{item.city}</Text>
+                    <Text style={styles.heroSubtext}>Discover Diaspora Flavors</Text>
+                  </LinearGradient>
+                </View>
               </React.Fragment>
             ))}
           </ScrollView>
         </View>
 
-        {/* Near You */}
-        {nearbyVendors.length > 0 && (
-          <View style={styles.section}>
-            <View style={styles.sectionHeader}>
-              <Text style={[styles.sectionTitle, { color: textColor }]}>
-                Near You
-              </Text>
-              <TouchableOpacity onPress={() => router.push('/(tabs)/map')}>
-                <Text style={[styles.seeAll, { color: colors.primary }]}>View Map</Text>
-              </TouchableOpacity>
-            </View>
-            {nearbyVendors.slice(0, 3).map((vendor, index) => (
+        {/* Category Chips */}
+        <View style={styles.categorySection}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.categoryScroll}
+          >
+            {categories.map((category, index) => (
               <React.Fragment key={index}>
-                <VendorCard vendor={vendor} />
+                <TouchableOpacity
+                  style={[
+                    styles.categoryChip,
+                    selectedCategory === category && styles.categoryChipActive,
+                  ]}
+                  onPress={() => setSelectedCategory(category)}
+                  activeOpacity={0.8}
+                >
+                  <Text
+                    style={[
+                      styles.categoryText,
+                      selectedCategory === category && styles.categoryTextActive,
+                    ]}
+                  >
+                    {category}
+                  </Text>
+                </TouchableOpacity>
               </React.Fragment>
             ))}
-          </View>
-        )}
+          </ScrollView>
+        </View>
 
-        {/* Top in City */}
-        {user?.default_location_city && (
-          <View style={styles.section}>
-            <View style={styles.sectionHeader}>
-              <Text style={[styles.sectionTitle, { color: textColor }]}>
-                Top in {user.default_location_city}
-              </Text>
-              <TouchableOpacity onPress={() => router.push('/(tabs)/explore')}>
-                <Text style={[styles.seeAll, { color: colors.primary }]}>See All</Text>
+        {/* Featured Restaurants */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Featured Restaurants</Text>
+            <TouchableOpacity onPress={() => router.push('/(tabs)/explore')}>
+              <Text style={styles.seeAll}>See All</Text>
+            </TouchableOpacity>
+          </View>
+
+          {featuredVendors.map((vendor, index) => (
+            <React.Fragment key={index}>
+              <TouchableOpacity
+                style={styles.restaurantCard}
+                onPress={() => router.push(`/vendor/${vendor.id}`)}
+                activeOpacity={0.9}
+              >
+                <Image source={{ uri: vendor.cover_image }} style={styles.restaurantImage} />
+                <LinearGradient
+                  colors={['transparent', 'rgba(13, 13, 13, 0.95)']}
+                  style={styles.restaurantGradient}
+                >
+                  <View style={styles.restaurantInfo}>
+                    <Text style={styles.restaurantName}>{vendor.name}</Text>
+                    <Text style={styles.restaurantTagline}>{vendor.tagline}</Text>
+                    <View style={styles.restaurantMeta}>
+                      <View style={styles.ratingBadge}>
+                        <IconSymbol
+                          ios_icon_name="star.fill"
+                          android_material_icon_name="star"
+                          size={14}
+                          color={colors.gold}
+                        />
+                        <Text style={styles.ratingText}>{vendor.rating_average}</Text>
+                      </View>
+                      <View style={styles.cuisineBadges}>
+                        {vendor.diaspora_focus.slice(0, 2).map((focus, idx) => (
+                          <React.Fragment key={idx}>
+                            <View style={styles.cuisineBadge}>
+                              <Text style={styles.cuisineBadgeText}>{focus}</Text>
+                            </View>
+                          </React.Fragment>
+                        ))}
+                      </View>
+                    </View>
+                  </View>
+                </LinearGradient>
               </TouchableOpacity>
-            </View>
-            {filteredVendors.slice(0, 3).map((vendor, index) => (
+            </React.Fragment>
+          ))}
+        </View>
+
+        {/* Grocery Near You */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Grocery Near You</Text>
+            <TouchableOpacity onPress={() => router.push('/(tabs)/explore')}>
+              <Text style={styles.seeAll}>View All</Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.horizontalScroll}
+          >
+            {groceryVendors.map((vendor, index) => (
               <React.Fragment key={index}>
-                <VendorCard vendor={vendor} />
+                <TouchableOpacity
+                  style={styles.groceryCard}
+                  onPress={() => router.push(`/vendor/${vendor.id}`)}
+                  activeOpacity={0.9}
+                >
+                  <Image source={{ uri: vendor.cover_image }} style={styles.groceryImage} />
+                  <View style={styles.groceryInfo}>
+                    <Text style={styles.groceryName} numberOfLines={1}>
+                      {vendor.name}
+                    </Text>
+                    <Text style={styles.groceryTagline} numberOfLines={1}>
+                      {vendor.tagline}
+                    </Text>
+                    <View style={styles.groceryBadge}>
+                      <IconSymbol
+                        ios_icon_name="cart.fill"
+                        android_material_icon_name="shopping_cart"
+                        size={12}
+                        color={colors.gold}
+                      />
+                      <Text style={styles.groceryBadgeText}>Grocery</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               </React.Fragment>
             ))}
-          </View>
-        )}
+          </ScrollView>
+        </View>
 
-        {/* Bottom Padding for Tab Bar */}
+        {/* Events */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Upcoming Events</Text>
+            <TouchableOpacity onPress={() => router.push('/(tabs)/events')}>
+              <Text style={styles.seeAll}>View All</Text>
+            </TouchableOpacity>
+          </View>
+
+          {upcomingEvents.map((event, index) => (
+            <React.Fragment key={index}>
+              <TouchableOpacity
+                style={styles.eventCard}
+                onPress={() => router.push(`/event-detail?id=${event.id}`)}
+                activeOpacity={0.9}
+              >
+                <Image source={{ uri: event.hero_image }} style={styles.eventImage} />
+                <LinearGradient
+                  colors={[colors.red, colors.secondary]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.eventDateBadge}
+                >
+                  <Text style={styles.eventDate}>{formatEventDate(event.start_datetime)}</Text>
+                </LinearGradient>
+                <View style={styles.eventInfo}>
+                  <Text style={styles.eventTitle} numberOfLines={2}>
+                    {event.title}
+                  </Text>
+                  <Text style={styles.eventSubtitle} numberOfLines={1}>
+                    {event.subtitle}
+                  </Text>
+                  <View style={styles.eventMeta}>
+                    <IconSymbol
+                      ios_icon_name="location.fill"
+                      android_material_icon_name="location_on"
+                      size={14}
+                      color={colors.gold}
+                    />
+                    <Text style={styles.eventLocation}>
+                      {event.city}, {event.state}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </React.Fragment>
+          ))}
+        </View>
+
+        {/* Bottom Padding */}
         <View style={styles.bottomPadding} />
       </ScrollView>
     </View>
@@ -353,56 +291,77 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0D0D0D',
   },
   scrollContent: {
     paddingTop: 60,
   },
-  header: {
-    paddingHorizontal: 20,
-    marginBottom: 20,
-  },
-  greeting: {
-    fontSize: 24,
-    fontWeight: '800',
-    marginBottom: 16,
-    lineHeight: 32,
-  },
-  locationButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    padding: 12,
-    borderRadius: 12,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
-    elevation: 2,
-  },
-  locationText: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  filterScroll: {
+  heroSection: {
     marginBottom: 24,
   },
-  filterContent: {
+  carouselContent: {
     paddingHorizontal: 20,
-    gap: 10,
+    gap: 16,
   },
-  filterChip: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+  carouselItem: {
+    width: CAROUSEL_WIDTH,
+    height: 240,
     borderRadius: 20,
+    overflow: 'hidden',
+  },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+  },
+  heroGradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '60%',
+    justifyContent: 'flex-end',
+    padding: 20,
+  },
+  heroCity: {
+    fontSize: 32,
+    fontWeight: '900',
+    color: colors.gold,
+    marginBottom: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+  },
+  heroSubtext: {
+    fontSize: 14,
+    color: colors.text,
+    fontWeight: '600',
+  },
+  categorySection: {
+    marginBottom: 24,
+  },
+  categoryScroll: {
+    paddingHorizontal: 20,
+    gap: 12,
+  },
+  categoryChip: {
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 24,
     backgroundColor: colors.card,
     borderWidth: 1,
-    borderColor: colors.highlight,
+    borderColor: colors.border,
   },
-  filterChipSelected: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
+  categoryChipActive: {
+    backgroundColor: colors.gold,
+    borderColor: colors.gold,
   },
-  filterChipText: {
-    fontSize: 14,
-    fontWeight: '600',
+  categoryText: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  categoryTextActive: {
+    color: '#0D0D0D',
   },
   section: {
     marginBottom: 32,
@@ -415,135 +374,176 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 22,
+    fontWeight: '800',
+    color: colors.text,
   },
   seeAll: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
+    color: colors.gold,
   },
-  horizontalList: {
-    paddingHorizontal: 20,
-    gap: 16,
-  },
-  vendorCardHorizontal: {
-    width: 280,
-    borderRadius: 16,
-    overflow: 'hidden',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08)',
-    elevation: 4,
-  },
-  vendorCard: {
+  restaurantCard: {
     marginHorizontal: 20,
     marginBottom: 16,
-    borderRadius: 16,
+    height: 200,
+    borderRadius: 20,
     overflow: 'hidden',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08)',
-    elevation: 4,
+    boxShadow: '0px 8px 24px rgba(212, 175, 55, 0.2)',
+    elevation: 8,
   },
-  vendorImageHorizontal: {
+  restaurantImage: {
     width: '100%',
-    height: 160,
+    height: '100%',
   },
-  vendorImage: {
-    width: '100%',
-    height: 180,
+  restaurantGradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '70%',
+    justifyContent: 'flex-end',
   },
-  vendorInfo: {
-    padding: 16,
+  restaurantInfo: {
+    padding: 20,
   },
-  vendorName: {
-    fontSize: 18,
-    fontWeight: '700',
+  restaurantName: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: colors.text,
     marginBottom: 4,
   },
-  vendorTagline: {
+  restaurantTagline: {
     fontSize: 14,
-    marginBottom: 8,
+    color: colors.textSecondary,
+    marginBottom: 12,
   },
-  vendorMeta: {
+  restaurantMeta: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+  },
+  ratingBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(212, 175, 55, 0.2)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  ratingText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: colors.gold,
+  },
+  cuisineBadges: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  cuisineBadge: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  cuisineBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  horizontalScroll: {
+    paddingHorizontal: 20,
+    gap: 16,
+  },
+  groceryCard: {
+    width: 180,
+    borderRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: colors.card,
+    boxShadow: '0px 4px 16px rgba(212, 175, 55, 0.15)',
+    elevation: 4,
+  },
+  groceryImage: {
+    width: '100%',
+    height: 120,
+  },
+  groceryInfo: {
+    padding: 12,
+  },
+  groceryName: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  groceryTagline: {
+    fontSize: 12,
+    color: colors.textSecondary,
     marginBottom: 8,
   },
-  ratingContainer: {
+  groceryBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
   },
-  ratingText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  ratingCount: {
-    fontSize: 12,
-  },
-  priceLevel: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  badges: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 6,
-  },
-  badge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  badgeText: {
+  groceryBadgeText: {
     fontSize: 11,
     fontWeight: '600',
+    color: colors.gold,
   },
-  eventCardHorizontal: {
-    width: 280,
-    borderRadius: 16,
+  eventCard: {
+    marginHorizontal: 20,
+    marginBottom: 16,
+    borderRadius: 20,
     overflow: 'hidden',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08)',
-    elevation: 4,
+    backgroundColor: colors.card,
+    boxShadow: '0px 8px 24px rgba(196, 30, 58, 0.2)',
+    elevation: 8,
   },
-  eventImageHorizontal: {
+  eventImage: {
     width: '100%',
-    height: 140,
+    height: 160,
+  },
+  eventDateBadge: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 12,
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)',
+  },
+  eventDate: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#FFFFFF',
   },
   eventInfo: {
-    padding: 14,
+    padding: 16,
   },
   eventTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    marginBottom: 8,
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 4,
+  },
+  eventSubtitle: {
+    fontSize: 13,
+    color: colors.textSecondary,
+    marginBottom: 10,
   },
   eventMeta: {
-    gap: 6,
-    marginBottom: 8,
-  },
-  metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
   },
-  eventMetaText: {
-    fontSize: 12,
-    fontWeight: '500',
-    flex: 1,
-  },
-  eventBadges: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 6,
-  },
-  eventTypeBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 10,
-  },
-  eventTypeBadgeText: {
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '700',
+  eventLocation: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.gold,
   },
   bottomPadding: {
     height: 120,
