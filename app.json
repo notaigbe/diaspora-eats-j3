@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/natively-dark.png",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "scheme": "diasporaeats",
     "splash": {
       "image": "./assets/images/natively-dark.png",
       "resizeMode": "contain",
@@ -24,7 +24,6 @@
         "foregroundImage": "./assets/images/natively-dark.png",
         "backgroundColor": "#000000"
       },
-      "edgeToEdgeEnabled": true,
       "package": "com.anonymous.jambalayajerkjollof"
     },
     "web": {
@@ -36,13 +35,13 @@
       "expo-router",
       "expo-web-browser"
     ],
-    "scheme": "diasporaeats",
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "newArchEnabled": true
     },
     "extra": {
       "router": {}
     }
   },
-  "scheme": "jambalayajerkjollof"
+  "packageManager": "pnpm@10.11.0"
 }

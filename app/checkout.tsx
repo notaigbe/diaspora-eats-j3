@@ -9,7 +9,7 @@ import {
   TextInput,
   Platform,
   Alert,
-} from 'react';
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { IconSymbol } from '@/components/IconSymbol';
 import * as colors from '@/components/colors';

@@ -99,7 +99,7 @@ export default function ExploreScreen() {
                   </Text>
                   <IconSymbol
                     ios_icon_name="chevron.right"
-                    android_material_icon_name="chevron_right"
+                    android_material_icon_name="chevron-right"
                     size={18}
                     color={textSecondaryColor}
                   />
@@ -143,14 +143,16 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 12,
     marginBottom: 32,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 2,
   },
   searchInput: {
     flex: 1,
     marginLeft: 12,
     fontSize: 15,
-    outlineStyle: 'none',
   },
   section: {
     marginBottom: 32,
@@ -172,7 +174,10 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 2,
   },
   categoryEmoji: {
@@ -193,7 +198,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderRadius: 12,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 2,
   },
   cuisineText: {

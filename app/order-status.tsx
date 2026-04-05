@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Platform,
   Linking,
-} from 'react';
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { IconSymbol } from '@/components/IconSymbol';
 import * as colors from '@/components/colors';
