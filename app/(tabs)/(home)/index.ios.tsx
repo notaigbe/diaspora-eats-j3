@@ -162,7 +162,7 @@ export default function HomeScreen() {
           <View style={styles.metaRow}>
             <IconSymbol
               ios_icon_name="location.fill"
-              android_material_icon_name="location_on"
+              android_material_icon_name="location-on"
               size={12}
               color={colors.primary}
             />
@@ -209,7 +209,7 @@ export default function HomeScreen() {
           >
             <IconSymbol
               ios_icon_name="location.fill"
-              android_material_icon_name="location_on"
+              android_material_icon_name="location-on"
               size={20}
               color={colors.primary}
             />
@@ -220,7 +220,7 @@ export default function HomeScreen() {
             </Text>
             <IconSymbol
               ios_icon_name="chevron.down"
-              android_material_icon_name="expand_more"
+              android_material_icon_name="expand-more"
               size={18}
               color={textSecondaryColor}
             />

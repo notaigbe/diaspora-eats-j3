@@ -39,7 +39,7 @@ export default function ProfileScreen() {
           <View style={[styles.authPrompt, { backgroundColor: cardColor }]}>
             <IconSymbol
               ios_icon_name="person.circle"
-              android_material_icon_name="account_circle"
+              android_material_icon_name="account-circle"
               size={64}
               color={textSecondaryColor}
             />
@@ -93,7 +93,7 @@ export default function ProfileScreen() {
               <View style={styles.locationRow}>
                 <IconSymbol
                   ios_icon_name="location.fill"
-                  android_material_icon_name="location_on"
+                  android_material_icon_name="location-on"
                   size={14}
                   color={textSecondaryColor}
                 />
@@ -165,7 +165,7 @@ export default function ProfileScreen() {
               <View style={styles.menuItemLeft}>
                 <IconSymbol
                   ios_icon_name="shield.fill"
-                  android_material_icon_name="admin_panel_settings"
+                  android_material_icon_name="admin-panel-settings"
                   size={22}
                   color={colors.primary}
                 />
@@ -175,7 +175,7 @@ export default function ProfileScreen() {
               </View>
               <IconSymbol
                 ios_icon_name="chevron.right"
-                android_material_icon_name="chevron_right"
+                android_material_icon_name="chevron-right"
                 size={18}
                 color={colors.primary}
               />
@@ -200,7 +200,7 @@ export default function ProfileScreen() {
             </View>
             <IconSymbol
               ios_icon_name="chevron.right"
-              android_material_icon_name="chevron_right"
+              android_material_icon_name="chevron-right"
               size={18}
               color={textSecondaryColor}
             />
@@ -214,7 +214,7 @@ export default function ProfileScreen() {
             <View style={styles.menuItemLeft}>
               <IconSymbol
                 ios_icon_name="location.fill"
-                android_material_icon_name="location_on"
+                android_material_icon_name="location-on"
                 size={22}
                 color={colors.primary}
               />
@@ -224,7 +224,7 @@ export default function ProfileScreen() {
             </View>
             <IconSymbol
               ios_icon_name="chevron.right"
-              android_material_icon_name="chevron_right"
+              android_material_icon_name="chevron-right"
               size={18}
               color={textSecondaryColor}
             />
@@ -248,7 +248,7 @@ export default function ProfileScreen() {
             </View>
             <IconSymbol
               ios_icon_name="chevron.right"
-              android_material_icon_name="chevron_right"
+              android_material_icon_name="chevron-right"
               size={18}
               color={textSecondaryColor}
             />

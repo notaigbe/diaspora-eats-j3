@@ -219,7 +219,7 @@ export default function HomeScreen() {
                     <View style={styles.groceryBadge}>
                       <IconSymbol
                         ios_icon_name="cart.fill"
-                        android_material_icon_name="shopping_cart"
+                        android_material_icon_name="shopping-cart"
                         size={12}
                         color={colors.gold}
                       />
@@ -267,7 +267,7 @@ export default function HomeScreen() {
                   <View style={styles.eventMeta}>
                     <IconSymbol
                       ios_icon_name="location.fill"
-                      android_material_icon_name="location_on"
+                      android_material_icon_name="location-on"
                       size={14}
                       color={colors.gold}
                     />
