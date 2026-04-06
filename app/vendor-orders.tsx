@@ -106,7 +106,7 @@ export default function VendorOrdersScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -184,7 +184,7 @@ export default function VendorOrdersScreen() {
                       <View style={styles.metaItem}>
                         <IconSymbol 
                           ios_icon_name={order.order_type === 'delivery' ? 'car.fill' : 'bag.fill'}
-                          android_material_icon_name={order.order_type === 'delivery' ? 'local_shipping' : 'shopping_bag'}
+                          android_material_icon_name={order.order_type === 'delivery' ? 'local-shipping' : 'shopping-bag'}
                           size={14} 
                           color={colors.textSecondary}
                         />
@@ -193,7 +193,7 @@ export default function VendorOrdersScreen() {
                       <View style={styles.metaItem}>
                         <IconSymbol 
                           ios_icon_name="dollarsign.circle.fill" 
-                          android_material_icon_name="attach_money"
+                          android_material_icon_name="attach-money"
                           size={14} 
                           color={colors.textSecondary}
                         />
@@ -234,7 +234,7 @@ export default function VendorOrdersScreen() {
             <View style={styles.emptyContainer}>
               <IconSymbol 
                 ios_icon_name="bag" 
-                android_material_icon_name="shopping_bag"
+                android_material_icon_name="shopping-bag"
                 size={64} 
                 color={colors.textSecondary}
               />

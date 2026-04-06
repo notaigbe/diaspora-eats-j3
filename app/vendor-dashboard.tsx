@@ -78,7 +78,7 @@ export default function VendorDashboardScreen() {
             <View style={styles.statCard}>
               <IconSymbol 
                 ios_icon_name="dollarsign.circle.fill" 
-                android_material_icon_name="attach_money"
+                android_material_icon_name="attach-money"
                 size={32} 
                 color="#34C759"
               />
@@ -88,7 +88,7 @@ export default function VendorDashboardScreen() {
             <View style={styles.statCard}>
               <IconSymbol 
                 ios_icon_name="bag.fill" 
-                android_material_icon_name="shopping_bag"
+                android_material_icon_name="shopping-bag"
                 size={32} 
                 color={colors.secondary}
               />
@@ -115,7 +115,7 @@ export default function VendorDashboardScreen() {
               </View>
               <IconSymbol 
                 ios_icon_name="chevron.right" 
-                android_material_icon_name="chevron_right"
+                android_material_icon_name="chevron-right"
                 size={20} 
                 color={colors.textSecondary}
               />
@@ -127,7 +127,7 @@ export default function VendorDashboardScreen() {
               <View style={styles.actionButtonLeft}>
                 <IconSymbol 
                   ios_icon_name="book.fill" 
-                  android_material_icon_name="menu_book"
+                  android_material_icon_name="menu-book"
                   size={24} 
                   color={colors.primary}
                 />
@@ -135,7 +135,7 @@ export default function VendorDashboardScreen() {
               </View>
               <IconSymbol 
                 ios_icon_name="chevron.right" 
-                android_material_icon_name="chevron_right"
+                android_material_icon_name="chevron-right"
                 size={20} 
                 color={colors.textSecondary}
               />
@@ -155,7 +155,7 @@ export default function VendorDashboardScreen() {
               </View>
               <IconSymbol 
                 ios_icon_name="chevron.right" 
-                android_material_icon_name="chevron_right"
+                android_material_icon_name="chevron-right"
                 size={20} 
                 color={colors.textSecondary}
               />

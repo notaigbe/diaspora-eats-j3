@@ -104,7 +104,7 @@ export default function EventDetailScreen() {
           >
             <IconSymbol
               ios_icon_name="chevron.left"
-              android_material_icon_name="arrow_back"
+              android_material_icon_name="arrow-back"
               size={24}
               color={textColor}
             />
@@ -288,7 +288,7 @@ export default function EventDetailScreen() {
                 </View>
                 <IconSymbol
                   ios_icon_name="chevron.right"
-                  android_material_icon_name="chevron_right"
+                  android_material_icon_name="chevron-right"
                   size={20}
                   color={textSecondaryColor}
                 />
@@ -338,7 +338,7 @@ export default function EventDetailScreen() {
           >
             <IconSymbol
               ios_icon_name="star"
-              android_material_icon_name="star_border"
+              android_material_icon_name="star-border"
               size={18}
               color={attendeeStatus === 'interested' ? '#FFFFFF' : textColor}
             />
@@ -362,7 +362,7 @@ export default function EventDetailScreen() {
           >
             <IconSymbol
               ios_icon_name="checkmark.circle"
-              android_material_icon_name="check_circle"
+              android_material_icon_name="check-circle"
               size={18}
               color={attendeeStatus === 'going' ? '#FFFFFF' : textColor}
             />
@@ -386,7 +386,7 @@ export default function EventDetailScreen() {
           >
             <IconSymbol
               ios_icon_name="ticket.fill"
-              android_material_icon_name="confirmation_number"
+              android_material_icon_name="confirmation-number"
               size={20}
               color="#FFFFFF"
             />

@@ -109,7 +109,7 @@ export default function CheckoutScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -183,7 +183,7 @@ export default function CheckoutScreen() {
               <View style={styles.paymentHeader}>
                 <IconSymbol 
                   ios_icon_name="creditcard.fill" 
-                  android_material_icon_name="credit_card"
+                  android_material_icon_name="credit-card"
                   size={24} 
                   color={colors.primary}
                 />

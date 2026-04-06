@@ -82,7 +82,7 @@ export default function OrderStatusScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />

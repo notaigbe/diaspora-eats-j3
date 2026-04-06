@@ -163,7 +163,7 @@ export default function AdminVendorsScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -273,7 +273,7 @@ export default function AdminVendorsScreen() {
                   <View style={styles.metaItem}>
                     <IconSymbol 
                       ios_icon_name={vendor.vendor_type === 'restaurant' ? 'fork.knife' : 'cart.fill'}
-                      android_material_icon_name={vendor.vendor_type === 'restaurant' ? 'restaurant' : 'shopping_cart'}
+                      android_material_icon_name={vendor.vendor_type === 'restaurant' ? 'restaurant' : 'shopping-cart'}
                       size={14} 
                       color={colors.textSecondary}
                     />
@@ -291,7 +291,7 @@ export default function AdminVendorsScreen() {
                   <View style={styles.metaItem}>
                     <IconSymbol 
                       ios_icon_name={vendor.is_active ? 'checkmark.circle.fill' : 'xmark.circle.fill'}
-                      android_material_icon_name={vendor.is_active ? 'check_circle' : 'cancel'}
+                      android_material_icon_name={vendor.is_active ? 'check-circle' : 'cancel'}
                       size={14} 
                       color={vendor.is_active ? '#34C759' : '#FF3B30'}
                     />

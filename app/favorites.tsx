@@ -37,7 +37,7 @@ export default function FavoritesScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -94,7 +94,7 @@ export default function FavoritesScreen() {
                         <View style={styles.metaItem}>
                           <IconSymbol 
                             ios_icon_name="location.fill" 
-                            android_material_icon_name="location_on"
+                            android_material_icon_name="location-on"
                             size={14} 
                             color={colors.textSecondary}
                           />
@@ -104,7 +104,7 @@ export default function FavoritesScreen() {
                           <View style={styles.metaItem}>
                             <IconSymbol 
                               ios_icon_name="car.fill" 
-                              android_material_icon_name="local_shipping"
+                              android_material_icon_name="local-shipping"
                               size={14} 
                               color={colors.textSecondary}
                             />
@@ -133,7 +133,7 @@ export default function FavoritesScreen() {
             <View style={styles.emptyContainer}>
               <IconSymbol 
                 ios_icon_name="heart" 
-                android_material_icon_name="favorite_border"
+                android_material_icon_name="favorite-border"
                 size={64} 
                 color={colors.textSecondary}
               />

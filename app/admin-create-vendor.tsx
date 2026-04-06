@@ -102,7 +102,7 @@ export default function AdminCreateVendorScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -139,7 +139,7 @@ export default function AdminCreateVendorScreen() {
                 >
                   <IconSymbol 
                     ios_icon_name={type === 'restaurant' ? 'fork.knife' : 'cart.fill'}
-                    android_material_icon_name={type === 'restaurant' ? 'restaurant' : 'shopping_cart'}
+                    android_material_icon_name={type === 'restaurant' ? 'restaurant' : 'shopping-cart'}
                     size={24} 
                     color={vendorType === type ? '#FFFFFF' : colors.text}
                   />

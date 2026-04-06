@@ -165,7 +165,7 @@ export default function VendorMenuScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -181,7 +181,7 @@ export default function VendorMenuScreen() {
           >
             <IconSymbol 
               ios_icon_name="plus.circle.fill" 
-              android_material_icon_name="add_circle"
+              android_material_icon_name="add-circle"
               size={24} 
               color={colors.primary}
             />
@@ -234,7 +234,7 @@ export default function VendorMenuScreen() {
                     <View style={styles.categoryHeaderLeft}>
                       <IconSymbol 
                         ios_icon_name={isExpanded ? 'chevron.down' : 'chevron.right'}
-                        android_material_icon_name={isExpanded ? 'expand_more' : 'chevron_right'}
+                        android_material_icon_name={isExpanded ? 'expand-more' : 'chevron-right'}
                         size={20} 
                         color={colors.text}
                       />

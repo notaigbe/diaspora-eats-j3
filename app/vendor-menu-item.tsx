@@ -110,7 +110,7 @@ export default function VendorMenuItemScreen() {
             >
               <IconSymbol 
                 ios_icon_name="chevron.left" 
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24} 
                 color={colors.text}
               />
@@ -131,7 +131,7 @@ export default function VendorMenuItemScreen() {
                 <View style={styles.imagePlaceholder}>
                   <IconSymbol 
                     ios_icon_name="camera.fill" 
-                    android_material_icon_name="add_a_photo"
+                    android_material_icon_name="add-a-photo"
                     size={40} 
                     color={colors.textSecondary}
                   />

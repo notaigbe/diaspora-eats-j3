@@ -98,7 +98,7 @@ export default function AdminEventsScreen() {
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
               <IconSymbol
                 ios_icon_name="chevron.left"
-                android_material_icon_name="arrow_back"
+                android_material_icon_name="arrow-back"
                 size={24}
                 color={colors.text}
               />
@@ -300,7 +300,7 @@ export default function AdminEventsScreen() {
                           event.is_published ? 'eye.slash.fill' : 'eye.fill'
                         }
                         android_material_icon_name={
-                          event.is_published ? 'visibility_off' : 'visibility'
+                          event.is_published ? 'visibility-off' : 'visibility'
                         }
                         size={16}
                         color={colors.primary}
@@ -318,7 +318,7 @@ export default function AdminEventsScreen() {
                           event.is_featured ? 'star.fill' : 'star'
                         }
                         android_material_icon_name={
-                          event.is_featured ? 'star' : 'star_border'
+                          event.is_featured ? 'star' : 'star-border'
                         }
                         size={16}
                         color={colors.primary}
