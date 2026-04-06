@@ -4,11 +4,11 @@
     "slug": "diaspora-eats",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/diaspora_eats_logo_green.png",
+    "icon": "./assets/images/diaspora_eats_logo.png",
     "userInterfaceStyle": "automatic",
     "scheme": "diasporaeats",
     "splash": {
-      "image": "./assets/images/diaspora_eats_logo_green.png",
+      "image": "./assets/images/diaspora_eats_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -21,13 +21,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/diaspora_eats_logo_green.png",
+        "foregroundImage": "./assets/images/diaspora_eats_logo.png",
         "backgroundColor": "#000000"
       },
       "package": "com.ooosumfoods.jambalayajerkjollof"
     },
     "web": {
-      "favicon": "./assets/images/diaspora_eats_logo_green.png",
+      "favicon": "./assets/images/diaspora_eats_logo.png",
       "bundler": "metro"
     },
     "plugins": [
