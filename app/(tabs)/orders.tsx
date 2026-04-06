@@ -208,7 +208,7 @@ export default function OrdersScreen() {
                     <View style={styles.detailRow}>
                       <IconSymbol
                         ios_icon_name={order.orderType === 'delivery' ? 'car.fill' : 'bag.fill'}
-                        android_material_icon_name={order.orderType === 'delivery' ? 'local_shipping' : 'shopping_bag'}
+                        android_material_icon_name={order.orderType === 'delivery' ? 'local-shipping' : 'shopping-bag'}
                         size={14}
                         color={textSecondaryColor}
                       />
@@ -219,7 +219,7 @@ export default function OrdersScreen() {
                     <View style={styles.detailRow}>
                       <IconSymbol
                         ios_icon_name="dollarsign.circle.fill"
-                        android_material_icon_name="attach_money"
+                        android_material_icon_name="attach-money"
                         size={14}
                         color={textSecondaryColor}
                       />
@@ -235,7 +235,7 @@ export default function OrdersScreen() {
                     </Text>
                     <IconSymbol
                       ios_icon_name="chevron.right"
-                      android_material_icon_name="chevron_right"
+                      android_material_icon_name="chevron-right"
                       size={16}
                       color={colors.primary}
                     />
@@ -248,7 +248,7 @@ export default function OrdersScreen() {
           <View style={styles.emptyState}>
             <IconSymbol
               ios_icon_name="bag"
-              android_material_icon_name="shopping_bag"
+              android_material_icon_name="shopping-bag"
               size={64}
               color={textSecondaryColor}
             />

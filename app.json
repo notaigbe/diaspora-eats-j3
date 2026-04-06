@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.jambalayajerkjollof",
+      "bundleIdentifier": "com.ooosumfoods.jambalayajerkjollof",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -36,11 +36,13 @@
       "expo-web-browser"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "newArchEnabled": true
+      "typedRoutes": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "eas": {
+        "projectId": "11e0cbaf-c71d-4626-9a4f-2fb537e493d9"
+      }
     }
   },
   "packageManager": "pnpm@10.11.0"
