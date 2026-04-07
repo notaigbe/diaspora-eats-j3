@@ -67,20 +67,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    console.log('[Auth] Signing in:', email);
-    const data = await api.post('/auth-login', { email, password });
-    await api.setToken(data.token);
-    setUser(normalizeUser(data.user));
-    console.log('[Auth] Signed in as:', data.user?.email, 'role:', data.user?.role);
-  };
+  const data = await api.post('/auth-login', { email, password });
+  const token = data?.token ?? data?.session?.access_token;
+  if (!token) throw new Error('No access token returned from auth-login');
+  await api.setToken(token);
+  setUser(normalizeUser(data.user));
+};
 
-  const signUp = async (email: string, password: string, name: string, role: UserRole = 'customer') => {
-    console.log('[Auth] Signing up:', email, 'role:', role);
-    const data = await api.post('/auth-signup', { email, password, name, role });
-    await api.setToken(data.token);
-    setUser(normalizeUser(data.user));
-    console.log('[Auth] Signed up as:', data.user?.email);
-  };
+const signUp = async (email: string, password: string, name: string, role: UserRole = 'customer') => {
+  const data = await api.post('/auth-signup', { email, password, name, role });
+  const token = data?.token ?? data?.session?.access_token;
+  if (!token) throw new Error('No access token returned from auth-signup');
+  await api.setToken(token);
+  setUser(normalizeUser(data.user));
+};
 
   const signOut = async () => {
     console.log('[Auth] Signing out');

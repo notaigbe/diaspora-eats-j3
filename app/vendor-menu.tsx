@@ -83,7 +83,9 @@ export default function VendorMenuScreen() {
     }
   }, []);
 
-  useFocusEffect(fetchMenu);
+  useFocusEffect(useCallback(() => {
+    fetchMenu();
+  }, [fetchMenu]));
 
   const handleToggleAvailability = async (itemId: string, currentValue: boolean) => {
     if (!vendorId) return;
@@ -140,7 +142,7 @@ export default function VendorMenuScreen() {
         <View style={styles.content}>
           <View style={styles.header}>
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-              <IconSymbol ios_icon_name="chevron.left" android_material_icon_name="arrow_back" size={24} color={colors.text} />
+              <IconSymbol ios_icon_name="chevron.left" android_material_icon_name="arrow-back" size={24} color={colors.text} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Menu Management</Text>
             <View style={{ width: 40 }} />
@@ -160,7 +162,7 @@ export default function VendorMenuScreen() {
           {!loading && error === '' && (
             <>
               <TouchableOpacity style={styles.addCategoryButton} onPress={() => setIsAddingCategory(true)}>
-                <IconSymbol ios_icon_name="plus.circle.fill" android_material_icon_name="add_circle" size={24} color={colors.primary} />
+                <IconSymbol ios_icon_name="plus.circle.fill" android_material_icon_name="add-circle" size={24} color={colors.primary} />
                 <Text style={styles.addCategoryButtonText}>Add Item</Text>
               </TouchableOpacity>
 
@@ -205,7 +207,7 @@ export default function VendorMenuScreen() {
                         <View style={styles.categoryHeaderLeft}>
                           <IconSymbol
                             ios_icon_name={isExpanded ? 'chevron.down' : 'chevron.right'}
-                            android_material_icon_name={isExpanded ? 'expand_more' : 'chevron_right'}
+                            android_material_icon_name={isExpanded ? 'expand-more' : 'chevron-right'}
                             size={20}
                             color={colors.text}
                           />
