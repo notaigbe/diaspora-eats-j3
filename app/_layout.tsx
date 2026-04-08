@@ -70,6 +70,8 @@ export default function RootLayout() {
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
           <Stack.Screen name="formsheet" options={{ presentation: 'formSheet' }} />
           <Stack.Screen name="transparent-modal" options={{ presentation: 'transparentModal' }} />
+          <Stack.Screen name="manage-addresses" />
+          <Stack.Screen name="edit-profile" />
         </Stack>
       </CartProvider>
     </AuthProvider>
