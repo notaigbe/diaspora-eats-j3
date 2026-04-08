@@ -65,9 +65,14 @@ export default function RootLayout() {
           <Stack.Screen name="checkout" />
           <Stack.Screen name="order-status" />
           <Stack.Screen name="favorites" />
+          <Stack.Screen name="auth-popup" />
+          <Stack.Screen name="auth-callback" />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
           <Stack.Screen name="formsheet" options={{ presentation: 'formSheet' }} />
           <Stack.Screen name="transparent-modal" options={{ presentation: 'transparentModal' }} />
+          <Stack.Screen name="manage-addresses" />
+          <Stack.Screen name="edit-profile" />
+          <Stack.Screen name="vendor-detail" />
         </Stack>
       </CartProvider>
     </AuthProvider>
