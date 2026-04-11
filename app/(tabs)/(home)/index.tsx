@@ -205,7 +205,9 @@ export default function HomeScreen() {
                       <Text style={[styles.restaurantName, { color: colors.text }]} numberOfLines={2}>
                         {vendor.name}
                       </Text>
-                      <Text style={styles.restaurantTagline}>{vendor.tagline || vendor.cuisine_type || ''}</Text>
+                      <Text style={[styles.restaurantTagline, { color: colors.primary }]}>
+                        {vendor.tagline || vendor.cuisine_type || ''}
+                      </Text>
                       <View style={styles.restaurantMeta}>
                         <View style={styles.ratingBadge}>
                           <IconSymbol ios_icon_name="star.fill" android_material_icon_name="star" size={14} color={colors.gold} />
